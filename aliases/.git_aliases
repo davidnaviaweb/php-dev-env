@@ -1,0 +1,83 @@
+
+## Git ###
+# Logs ##
+# pretty log #
+alias gl='git log --graph --pretty=format:"  %Cred%h%Creset %C(bold blue)<%an>%Creset %Cgreen(%cr)%C(yellow)%d%Creset > %s" --abbrev-commit'
+
+# Add ##
+alias ga='git add'
+# add all indexed modified files #
+alias gau='git add -u'
+# add all files in the current folder and its subfolders #
+alias gaa='git add .'
+
+#Commit ##
+alias gc='git pull && git commit --verbose'
+# commit with message Example: $gcm "this is the commit message"
+alias gcm='git pull && git commit -m'
+# commit with ammend #
+alias gca='git commit --amend --verbose'
+# undo last commit #
+alias guc='git reset --soft HEAD~1'
+# undo last commit Chuck Norris' style #
+alias gucf='git reset --hard HEAD~1'
+
+# Add & Commit ##
+# add all indexed modified files & commit with message Example: $ gaum "this is the commit message for my already indexed modified files"
+alias gaum='gpl && git add -u && git commit -m'
+# add all indexed modified files & commit with ammend #
+alias gauca='git add -u && git commit --amend'
+
+# diff
+alias gd='git diff'
+alias gds='git diff --stat'
+alias gdc='git diff --cached'
+
+# push
+alias gp='git push'
+alias gpo='git push --set-upstream origin "$(gbn)"'
+
+# remotes
+alias gub='git fetch --prune'
+alias gubc='git fetch -p && for branch in `git branch -vv | grep ": gone]" | awk "{print $1}"`; do git branch -D $branch; done'
+alias gsus='git branch --set-upstream-to=origin/"$(gbn)" "$(gbn)"'
+
+# pull
+alias gpl='git pull'
+alias gpla='git pull --all'
+
+# status
+alias gs='git status -s'
+
+# checkout
+alias gco='git checkout'
+alias gcob='git checkout -b'
+
+# Branches
+alias gsw='git switch -'
+
+# list branches sorted by last modified
+alias gb='git for-each-ref --sort="-authordate" --format="%(authordate)%09%(objectname:short)%09%(refname)" refs/heads | sed -e "s-refs/heads/--"'
+
+# rename branch
+alias gbm='git branch -m'
+alias gba='git branch -a'
+alias gbd='git branch -d'
+alias gbdf='git branch -D'
+alias gbn='git rev-parse --abbrev-ref HEAD'
+
+# Stashing
+alias gsh='git stash'
+alias gshs='git stash save'
+alias gshp='git stash pop'
+alias gshl='git stash list'
+
+# Reset
+alias grh='git reset HEAD'
+
+# Cherry picking
+alias gcp='git cherry-pick'
+
+# Submodules
+alias gsi='git submodule init'
+alias gsur='git submodule update --recursive'

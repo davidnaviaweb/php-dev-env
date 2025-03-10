@@ -1,0 +1,35 @@
+# Source
+alias reload='source ~/.zshrc'
+alias zshconf='sudo vim ~/.zshrc'
+alias aliases='sudo vim ~/.zsh_aliases'
+alias wpaliases='sudo vim ~/.wp_aliases'
+
+# Screen
+alias cls='printf "\033c"'
+
+# Composer
+alias comp="/usr/local/bin/do_composer ${PWD}"
+
+# Dirs
+alias ll='ls -FGlAhpo -h --group-directories-first --color=always'
+alias lso="ls -alG | awk '{k=0;for(i=0;i<=8;i++)k+=((substr(\$1,i+2,1)~/[rwx]/)*2^(8-i));if(k)printf(\" %0o \",k);print}'"
+alias lol="ls -FGlAhpo -h --group-directories-first --color=always | awk '{k=0;for(i=0;i<=8;i++)k+=((substr(\$1,i+2,1)~/[rwx]/)*2^(8-i));if(k)printf(\" %0o \",k);print}'"
+alias home='cd /home/david'
+alias sites='cd /etc/apache2/sites-available'
+alias www='cd /var/www/html'
+
+# Server
+alias son='sudo service mysql start && sudo service apache2 start'
+alias sof='sudo service apache2 stop && sudo service mysql stop'
+alias srel='sudo service apache2 reload'
+
+# Logs
+alias clog="sudo bash -c 'echo > $1'"
+alias logs='cd /var/log/apache2'
+
+## WSL ##
+alias drop_cache="sudo sh -c \"echo 3 >'/proc/sys/vm/drop_caches' && swapoff -a && swapon -a && printf '\n%s\n' 'Ram-cache and Swap Cleared'\""
+
+# List aliases
+alias gla='git config -l | grep alias | cut -c 7-'
+

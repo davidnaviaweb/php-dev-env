@@ -41,7 +41,7 @@ mysql -e "FLUSH PRIVILEGES;"
 echo "✅ MariaDB configurado con éxito."
 
 echo echo "📦 Instalando PHP..."
-sudo apt install -y php libapache2-mod-php php-{mysql,cli,gd,mbstring,common,xml,xmlrpc,dom,json,curl,xml,zip,apcu}
+sudo apt install -y php libapache2-mod-php php-{mysql,cli,gd,mbstring,common,xml,xmlrpc,json,curl,xml,zip,apcu}
 sudo a2enmod php
 sudo service apache2 restart
 

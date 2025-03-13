@@ -10,6 +10,7 @@ fi
 
 USER_ORIGINAL=${SUDO_USER:-$USER}
 HOME_ORIGINAL=$(eval echo ~$USER_ORIGINAL)
+REPO_URL="https://raw.githubusercontent.com/davidnaviaweb/php-dev-env/refs/heads/main/"
 
 echo "🛠️  Actualizando el sistema..."
 apt update && apt upgrade -y
@@ -69,10 +70,8 @@ sed -i '/^plugins=/c\plugins=(zsh-autosuggestions zsh-syntax-highlighting)' $HOM
 echo "✅ Powerlevel10K y plugins configurados en Zsh."
 
 echo "🛠️ Descargando archivos de alias desde GitHub"
-REPO_URL="https://raw.githubusercontent.com/davidnaviaweb/php-dev-env/refs/heads/main/aliases/"
-
 echo ""
-wget -O $HOME_ORIGINAL/.zsh_aliases "$REPO_URL.zsh_aliases"
+wget -O $HOME_ORIGINAL/.zsh_aliases "$REPO_URL/aliases/.zsh_aliases"
 echo ""
 echo "🛠️ Configurando .zshrc para cargar ~/.zsh_aliases"
 if ! grep -q "source ~/.zsh_aliases" $HOME_ORIGINAL/.zshrc; then
@@ -80,7 +79,7 @@ if ! grep -q "source ~/.zsh_aliases" $HOME_ORIGINAL/.zshrc; then
 fi
 
 echo ""
-wget -O $HOME_ORIGINAL/.git_aliases "$REPO_URL.git_aliases"
+wget -O $HOME_ORIGINAL/.git_aliases "$REPO_URL/aliases/.git_aliases"
 echo ""
 echo "🛠️ Configurando .zshrc para cargar ~/.git_aliases"
 if ! grep -q "source ~/.git_aliases" $HOME_ORIGINAL/.zshrc; then
@@ -105,18 +104,17 @@ chmod +x wp-cli.phar
 sudo mv wp-cli.phar /usr/local/bin/wp
 
 echo "🛠️ Configurando WP CLI completion"
-curl -O https://raw.githubusercontent.com/wp-cli/wp-cli/main/utils/wp-completion.bash
-mv wp-completion.bash $HOME_ORIGINAL/.wp-completion.bash
+wget -O $HOME_ORIGINAL/.wp-completion.bash "$REPO_URL/utils/wp-completion.bash"
 echo "source ~/.wp-completion.bash" >> $HOME_ORIGINAL/.zshrc
 
 echo "✅ WP CLI instalado con éxito."
 
 echo "📦 Instalando Utilidades..."
-curl -O https://raw.githubusercontent.com/davidnaviaweb/php-dev-env/utils/do_composer.sh
+wget -O $HOME_ORIGINAL/do_composer.sh "$REPO_URL/utils/do_composer.sh"
 chmod +x do_composer.sh
 sudo mv do_composer.sh /usr/local/bin/do_composer
 
-curl -O https://raw.githubusercontent.com/davidnaviaweb/php-dev-env/utils/newrelease.sh
+wget -O $HOME_ORIGINAL/newrelease.sh "$REPO_URL/utils/newrelease.sh"
 chmod +x newrelease.sh
 sudo mv newrelease.sh /usr/local/bin/newrelease
 
@@ -125,7 +123,6 @@ echo "✅ Utilidades instaladas con éxito."
 echo "➡️ Cambiando a zsh para continuar la configuración..."
 sudo -u $USER_ORIGINAL zsh <<'EOF'
 source ~/.zshrc
-
 
 echo "✅ Configuración adicional en zsh completada. Ejecuta 'exit' para salir de la terminal y aplicar los cambios."
 EOF

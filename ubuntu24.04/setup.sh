@@ -8,6 +8,9 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 fi
 
+USER_ORIGINAL=${SUDO_USER:-$USER}
+HOME_ORIGINAL=$(eval echo ~$USER_ORIGINAL)
+
 echo "🛠️  Actualizando el sistema..."
 apt update && apt upgrade -y
 
@@ -52,32 +55,36 @@ sudo apt install -y zsh
 
 echo "🛠️ Configurando ZSH"
 sudo sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
-sudo chsh -s $(which zsh) $USER
+sudo chsh -s $(which zsh) $USER_ORIGINAL
 
 echo "🛠️ Configurando Powerlevel10K"
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="powerlevel10k/powerlevel10k"/g' ~/.zshrc
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME_ORIGINAL/.oh-my-zsh/custom}/themes/powerlevel10k
+sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="powerlevel10k\/powerlevel10k"/g' $HOME_ORIGINAL/.zshrc
 
 echo "📦 Instalando plugins de Oh My Zsh"
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-sed -i '/^plugins=/c\plugins=(zsh-autosuggestions zsh-syntax-highlighting)' ~/.zshrc
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME_ORIGINAL/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME_ORIGINAL/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+sed -i '/^plugins=/c\plugins=(zsh-autosuggestions zsh-syntax-highlighting)' $HOME_ORIGINAL/.zshrc
 
 echo "✅ Powerlevel10K y plugins configurados en Zsh."
 
 echo "🛠️ Descargando archivos de alias desde GitHub"
 REPO_URL="https://raw.githubusercontent.com/davidnaviaweb/php-dev-env/refs/heads/main/aliases/"
 
-wget -O ~/.zsh_aliases "$REPO_URL.zsh_aliases"
+echo ""
+wget -O $HOME_ORIGINAL/.zsh_aliases "$REPO_URL.zsh_aliases"
+echo ""
 echo "🛠️ Configurando .zshrc para cargar ~/.zsh_aliases"
-if ! grep -q "source ~/.zsh_aliases" ~/.zshrc; then
-    echo "source ~/.zsh_aliases" >> ~/.zshrc
+if ! grep -q "source ~/.zsh_aliases" $HOME_ORIGINAL/.zshrc; then
+    echo "source ~/.zsh_aliases" >> $HOME_ORIGINAL/.zshrc
 fi
 
-wget -O ~/.git_aliases "$REPO_URL.git_aliases"
+echo ""
+wget -O $HOME_ORIGINAL/.git_aliases "$REPO_URL.git_aliases"
+echo ""
 echo "🛠️ Configurando .zshrc para cargar ~/.git_aliases"
-if ! grep -q "source ~/.git_aliases" ~/.zshrc; then
-    echo "source ~/.git_aliases" >> ~/.zshrc
+if ! grep -q "source ~/.git_aliases" $HOME_ORIGINAL/.zshrc; then
+    echo "source ~/.git_aliases" >> $HOME_ORIGINAL/.zshrc
 fi
 
 echo "✅ Archivos de alias configurados con éxito."
@@ -99,8 +106,8 @@ sudo mv wp-cli.phar /usr/local/bin/wp
 
 echo "🛠️ Configurando WP CLI completion"
 curl -O https://raw.githubusercontent.com/wp-cli/wp-cli/main/utils/wp-completion.bash
-mv wp-completion.bash ~/.wp-completion.bash
-echo "source ~/.wp-completion.bash" >> ~/.zshrc
+mv wp-completion.bash $HOME_ORIGINAL/.wp-completion.bash
+echo "source ~/.wp-completion.bash" >> $HOME_ORIGINAL/.zshrc
 
 echo "✅ WP CLI instalado con éxito."
 
@@ -115,9 +122,8 @@ sudo mv newrelease.sh /usr/local/bin/newrelease
 
 echo "✅ Utilidades instaladas con éxito."
 
-# Cambiar a zsh y continuar la configuración
 echo "➡️ Cambiando a zsh para continuar la configuración..."
-zsh <<'EOF'
+sudo -u $USER_ORIGINAL zsh <<'EOF'
 source ~/.zshrc
 
 

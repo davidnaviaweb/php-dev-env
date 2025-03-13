@@ -41,7 +41,7 @@ mysql -e "FLUSH PRIVILEGES;"
 echo "✅ MariaDB configurado con éxito."
 
 echo echo "📦 Instalando PHP..."
-sudo apt install -y php libapache2-mod-php php-{mysql,cli,gd,mbstring,common,xml,xmlrpc,dom,json,ftp,iconv,curl,simplexml,zip}
+sudo apt install -y php libapache2-mod-php php-{mysql,cli,gd,mbstring,common,xml,xmlrpc,dom,json,curl,xml,zip,apcu}
 sudo a2enmod php
 sudo service apache2 restart
 
@@ -51,8 +51,8 @@ echo "📦 Instalando ZSH..."
 sudo apt install -y zsh
 
 echo "🛠️ Configurando ZSH"
-sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-chsh -s $(which zsh) $USER
+sudo sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
+sudo chsh -s $(which zsh) $USER
 
 echo "🛠️ Configurando Powerlevel10K"
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
@@ -66,7 +66,7 @@ sed -i '/^plugins=/c\plugins=(zsh-autosuggestions zsh-syntax-highlighting)' ~/.z
 echo "✅ Powerlevel10K y plugins configurados en Zsh."
 
 echo "🛠️ Descargando archivos de alias desde GitHub"
-REPO_URL="https://raw.githubusercontent.com/davidnaviaweb/php-dev-env/aliases/"
+REPO_URL="https://raw.githubusercontent.com/davidnaviaweb/php-dev-env/refs/heads/main/aliases/"
 
 wget -O ~/.zsh_aliases "$REPO_URL.zsh_aliases"
 echo "🛠️ Configurando .zshrc para cargar ~/.zsh_aliases"
@@ -115,4 +115,11 @@ sudo mv newrelease.sh /usr/local/bin/newrelease
 
 echo "✅ Utilidades instaladas con éxito."
 
+# Cambiar a zsh y continuar la configuración
+echo "➡️ Cambiando a zsh para continuar la configuración..."
+zsh <<'EOF'
 source ~/.zshrc
+
+
+echo "✅ Configuración adicional en zsh completada. Ejecuta 'exit' para salir de la terminal y aplicar los cambios."
+EOF

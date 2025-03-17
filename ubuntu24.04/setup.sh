@@ -61,6 +61,7 @@ sudo chsh -s $(which zsh) $USER_ORIGINAL
 echo "🛠️ Configurando Powerlevel10K"
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME_ORIGINAL/.oh-my-zsh/custom}/themes/powerlevel10k
 sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="powerlevel10k\/powerlevel10k"/g' $HOME_ORIGINAL/.zshrc
+wget -O $HOME_ORIGINAL/.p10k.zsh "$REPO_URL/config/.p10k.zsh"
 
 echo "📦 Instalando plugins de Oh My Zsh"
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME_ORIGINAL/.oh-my-zsh/custom}/plugins/zsh-autosuggestions

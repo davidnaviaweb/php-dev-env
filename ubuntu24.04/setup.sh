@@ -22,6 +22,7 @@ echo "✅ Configuración básica completada."
 
 echo "📦 Instalando Apache..."
 sudo apt install -y apache2 apache2-utils
+sudo a2enmod rewrite headers ssl expires proxy proxy_http
 sudo service apache2 start
 
 echo "🛠️ Estado de Apache"

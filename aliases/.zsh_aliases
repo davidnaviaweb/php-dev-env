@@ -8,7 +8,7 @@ alias wpaliases='sudo vim ~/.wp_aliases'
 alias cls='printf "\033c"'
 
 # Composer
-alias comp="/usr/local/bin/do_composer ${PWD}"
+alias comp="/usr/local/bin/DoComposer ${PWD}"
 
 # Dirs
 alias ll='ls -FGlAhpo -h --group-directories-first --color=always'

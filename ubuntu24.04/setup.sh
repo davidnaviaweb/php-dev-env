@@ -46,7 +46,7 @@ mysql -e "FLUSH PRIVILEGES;"
 echo "✅ MariaDB configurado con éxito."
 
 echo echo "📦 Instalando PHP..."
-sudo apt install -y php libapache2-mod-php php-{mysql,cli,gd,mbstring,common,xml,xmlrpc,json,curl,xml,zip,apcu}
+sudo apt install -y php libapache2-mod-php php-{mysqli,cli,gd,mbstring,common,xml,json,curl,zip,apcu}
 sudo a2enmod php
 sudo service apache2 restart
 
@@ -55,7 +55,7 @@ echo "✅ PHP instalado con éxito."
 echo "📦 Instalando ZSH..."
 sudo apt install -y zsh
 
-echo "🛠️ Configurando ZSH"
+echo "🛠️ Configurando OhMyZSH"
 sudo sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
 sudo chsh -s $(which zsh) $USER_ORIGINAL
 
@@ -112,13 +112,13 @@ echo "source ~/.wp-completion.bash" >> $HOME_ORIGINAL/.zshrc
 echo "✅ WP CLI instalado con éxito."
 
 echo "📦 Instalando Utilidades..."
-wget -O $HOME_ORIGINAL/do_composer.sh "$REPO_URL/utils/do_composer.sh"
-chmod +x do_composer.sh
-sudo mv do_composer.sh /usr/local/bin/do_composer
+wget -O $HOME_ORIGINAL/DoComposer.sh "$REPO_URL/utils/DoComposer.sh"
+chmod +x DoComposer.sh
+sudo mv DoComposer.sh /usr/local/bin/DoComposer
 
-wget -O $HOME_ORIGINAL/newrelease.sh "$REPO_URL/utils/newrelease.sh"
-chmod +x newrelease.sh
-sudo mv newrelease.sh /usr/local/bin/newrelease
+wget -O $HOME_ORIGINAL/NewRelease.sh "$REPO_URL/utils/NewRelease.sh"
+chmod +x NewRelease.sh
+sudo mv NewRelease.sh /usr/local/bin/NewRelease
 
 echo "✅ Utilidades instaladas con éxito."
 

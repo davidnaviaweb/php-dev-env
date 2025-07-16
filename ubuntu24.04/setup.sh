@@ -52,6 +52,14 @@ sudo service apache2 restart
 
 echo "✅ PHP instalado con éxito."
 
+echo "📦 Instalando Redis..."
+sudo apt install redis redis-cli redis-server php-redis
+
+echo "✅ Redis instalado con éxito."
+
+echo "🛠️ Configurando Git"
+git config --global core.fileMode false
+
 echo "📦 Instalando ZSH..."
 sudo apt install -y zsh
 
@@ -112,13 +120,13 @@ echo "source ~/.wp-completion.bash" >> $HOME_ORIGINAL/.zshrc
 echo "✅ WP CLI instalado con éxito."
 
 echo "📦 Instalando Utilidades..."
-wget -O $HOME_ORIGINAL/DoComposer.sh "$REPO_URL/utils/DoComposer.sh"
-chmod +x DoComposer.sh
-sudo mv DoComposer.sh /usr/local/bin/DoComposer
+wget -O $HOME_ORIGINAL/docomposer.sh "$REPO_URL/utils/docomposer.sh"
+chmod +x docomposer.sh
+sudo mv docomposer.sh /usr/local/bin/docomposer
 
-wget -O $HOME_ORIGINAL/NewRelease.sh "$REPO_URL/utils/NewRelease.sh"
-chmod +x NewRelease.sh
-sudo mv NewRelease.sh /usr/local/bin/NewRelease
+wget -O $HOME_ORIGINAL/docomposer.sh "$REPO_URL/utils/newrelease.sh"
+chmod +x docomposer.sh
+sudo mv docomposer.sh /usr/local/bin/newrelease
 
 echo "✅ Utilidades instaladas con éxito."
 

@@ -1,6 +1,6 @@
 # Overview
 
-Tired of doing the same boring operations each time I have to set up my common development environment, I decided to create this script which is intended to automatize the installation and configuration of a LAMP WordPress-development environment based on Ubuntu. It contains a basic set of instructions for installing Apache, PHP, MariaDB, NodeJS and a bunch of utilities that I have been using for years.
+Tired of doing the same boring operations each time I have to set up my common development environment, I decided to create this script which is intended to automatize the installation and configuration of a LAMP WordPress-development environment based on Ubuntu. It contains a basic set of instructions for installing Apache, PHP, MariaDB, Redis, NodeJS and a bunch of utilities that I have been using for years.
 
 Currently it is focused on Ubuntu 24.04, I do not reject to add more distros in the future though.
 
